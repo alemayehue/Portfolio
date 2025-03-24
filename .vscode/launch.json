@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/elias/Library/Messages/Attachments/20/00/0B4D322E-EF03-4B1D-99F4-D5D6DE7B3113",
+      "program": "/Users/elias/Library/Messages/Attachments/20/00/0B4D322E-EF03-4B1D-99F4-D5D6DE7B3113/build/Debug/outDebug"
+    }
+  ]
+}
