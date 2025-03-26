@@ -19,6 +19,7 @@ export default function LandingPage() {
 
   const viewportHeight = window.innerHeight;
 
+  // Records the section positions based on the y level of the user's viewing screen
   type SectionKeys = "first" | "second" | "third" | "fourth" | "fifth";
   const sections: Record<SectionKeys, number> = {
     first: 0,
