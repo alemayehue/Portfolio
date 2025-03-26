@@ -1,74 +1,59 @@
 "use client";
-// From React/Next.js
-import React, { useState, useEffect, useRef } from "react";
+
+import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { Github, Linkedin, Mail, Scroll } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 
-// From my functions
+// Custom Hooks & Components
 import Loader from "../components/loading";
+import Dropdown from "@/components/dropdown";
 import ScrollTracker from "../components/scroll";
-import Resize from "../components/resize";
+import useViewportHeight from "../components/viewportHeight";
 
-// Misc.
+// Other
 import { motion } from "framer-motion";
 
-
+// Landing Page
 export default function LandingPage() {
   const [open, setOpen] = useState(false);
   const [scrollDirection, setScrollDirection] = useState<"up" | "down" | null>(null);
+  const viewportHeight = useViewportHeight();
 
-  const viewportHeight = window.innerHeight;
-
-  // Records the section positions based on the y level of the user's viewing screen
-  type SectionKeys = "first" | "second" | "third" | "fourth" | "fifth";
-  const sections: Record<SectionKeys, number> = {
+  const sections = {
     first: 0,
     second: 0.96 * viewportHeight,
     third: 1.96 * viewportHeight,
     fourth: 2.96 * viewportHeight,
     fifth: 4 * viewportHeight,
-  };
+  } as const;
 
-  const scrollToSection = (section: SectionKeys) => {
+  const scrollToSection = useCallback((section: keyof typeof sections) => {
     const position = sections[section];
-    window.scrollTo({
-      top: position,
-      behavior: "smooth",
-    });
-  };
-
-  const dropdownState = () => {
-    setOpen(!open);
-  }
+    if (position !== undefined) {
+      window.scrollTo({ top: position, behavior: "smooth" });
+    }
+  }, [sections]);
 
   return (
-    <div className='page'>
+    <div className="page">
+      {/* Scroll Tracking */}
       <ScrollTracker onScrollChange={setScrollDirection} />
-      <header className='landing-header galka'>
-        <a className="header-logo" href="HOMEPAGEHOMEPAGEHOMEPAGEHOMEPAGEHOMEPAGEHOMEPAGE">
+
+      {/* Header */}
+      <header className="landing-header galka">
+        <a className="header-logo" href="/">
           elias
         </a>
-        <button className='dropdown' onClick={() => scrollToSection("second")}>
-          <div className="top-line"></div>
-          <div className="bottom-line"></div>
-        </button>
+        <Dropdown />
       </header>
 
-      <main className='landing-page-1'>
-        Here is landing page 1
-      </main>
+      {/* Sections */}
+      <main className="landing-page-1">Here is landing page 1</main>
+      <main className="landing-page-2">Here is landing page 2</main>
+      <main className="landing-page-3">Here is landing page 3</main>
 
-      <main className='landing-page-2'>
-        Here is landing page 2
-      </main>
-
-      <main className='landing-page-3'>
-        Here is landing page 3
-      </main>
-
-      <footer className='landing-footer'>
-        Here is the footer
-      </footer>
+      {/* Footer */}
+      <footer className="landing-footer">Here is the footer</footer>
     </div>
   );
 }

@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
-const ViewportHeightComponent = () => {
+const useViewportHeight = () => {
   const [viewportHeight, setViewportHeight] = useState<number>(window.innerHeight);
 
   useEffect(() => {
     const updateViewportHeight = () => {
-      setViewportHeight(window.innerHeight); // Update the height
+      setViewportHeight(window.innerHeight);
     };
 
     window.addEventListener("resize", updateViewportHeight);
-
     return () => {
       window.removeEventListener("resize", updateViewportHeight);
     };
   }, []);
 
-  return {viewportHeight};
+  return viewportHeight;
 };
 
-export default ViewportHeightComponent;
+export default useViewportHeight;
