@@ -9,15 +9,15 @@ import Loader from "../components/loading";
 import Dropdown from "@/components/dropdown";
 import ScrollTracker from "../components/scroll";
 import useViewportHeight from "../components/viewportHeight";
+import useViewportWidth from "@/components/viewportWidth";
 
-// Other
-import { motion } from "framer-motion";
 
 // Landing Page
 export default function LandingPage() {
   const [open, setOpen] = useState(false);
   const [scrollDirection, setScrollDirection] = useState<"up" | "down" | null>(null);
   const viewportHeight = useViewportHeight();
+  const viewportWidth = useViewportWidth();
 
   const sections = {
     first: 0,
