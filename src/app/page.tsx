@@ -41,9 +41,9 @@ export default function LandingPage() {
 
       {/* Header */}
       <header className="landing-header galka">
-        <a className="header-logo" href="/">
+        <button className="header-logo" onClick={() => scrollToSection("first")}>
           elias
-        </a>
+        </button>
         <Dropdown />
       </header>
 
