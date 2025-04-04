@@ -39,8 +39,10 @@ body {
   }
 }
 
+/*****************
+Fonts
+*****************/
 
-/* Fonts */
 @font-face {
   font-family: 'Galka';
   src: local('Galka'), url('../fonts/YWFT-Galka-Regular.otf') format('opentype');
@@ -64,7 +66,9 @@ body {
 }
 
 
-/* Landing Page */
+/*****************
+Landing Page
+*****************/
 
 .page {
   display: relative;
@@ -129,6 +133,13 @@ body {
   letter-spacing: 1px;
 }
 
+
+
+
+/*****************
+Dropdown Menu CSS 
+*****************/
+
 .dropdown-button {
   position: fixed;
   right: 7vw;
@@ -140,20 +151,80 @@ body {
 
 .dropdown-closed {
   position: fixed;
+  display: flex;
+  flex-direction: column;
   background-color: var(--accent-color);
   right: 5vw;
   top: 5vh;
   width: 10vw;
   height: 15vh;
+  padding: 15px;
   opacity: 0;
+  pointer-events: none;
   transition: all 0.3s ease;
 }
 
 .dropdown-open {
-  width: 20vw;
-  height: 40vh;
+  width: 22.5vw;
+  height: 55vh;
   opacity: 1;
 }
+
+.dropdown-element {
+  flex: none; /* Prevent stretching */
+  text-align: left; /* Align text inside the button */
+  padding-left: 1vw; /* Add padding to move text inward */
+  cursor: pointer;
+  padding-top: 3vh;
+  color: #FFF;
+  font-family: "Galka";
+  font-weight: 900;
+  font-size: 2vw;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-element-hello {
+  flex: none; /* Prevent stretching */
+  text-align: left; /* Align text inside the button */
+  padding-left: .5vw; /* Add padding to move text inward */
+  cursor: pointer;
+  padding-top: 15px;
+  color: #FFF;
+  font-family: "Galka";
+  font-weight: 900;
+  font-size: 2vw;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-element:hover {
+
+}
+
+.dropdown-element-mobile {
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-element-mobile:hover {
+  background-color: #e0e0e0;
+}
+
+.dropdown-closed-mobile {
+  position: fixed;
+  background-color: var(--accent-color);
+  top: 0;
+  left: 0;
+  opacity: 0;
+  width: 100vw;
+  height: 100vh;
+  transition: all 0.3s ease;
+}
+
+.dropdown-open-mobile {
+  opacity: 1;
+}
+
 
 .top-line {
   position: relative;
@@ -183,45 +254,34 @@ body {
   transform: rotate(-45deg) translateX(12.5px);
 }
 
-.dropdown-container {
-  display: flex;
-  flex-direction: column;
-}
 
-/* Dropdown items */
-.dropdown-element {
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.dropdown-element:hover {
-  background-color: #e0e0e0;
-}
-
-
-.dropdown-closed-mobile {
-  position: fixed;
-  background-color: var(--accent-color);
-  top: 0;
-  left: 0;
-  opacity: 0;
-  width: 100vw;
-  height: 100vh;
+.divider {
+  position: relative;
+  bottom: 2vh;
+  width: 5vw;
+  height: .3vw;
+  background-color: var(--primary-color);
   transition: all 0.3s ease;
 }
 
-.dropdown-open-mobile {
-  opacity: 1;
+.social-container {
+  position: absolute;
+  bottom: 2vh;
 }
 
-/* Dropdown items */
-.dropdown-element-mobile {
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.social-icon {
+  width: 16vw;
+  height: 9vh;
 }
 
-.dropdown-element-mobile:hover {
-  background-color: #e0e0e0;
+
+/**********************
+Global Colors & Shapes
+**********************/
+.remove-cursor {
+  pointer-events: none;
 }
 
-/* Global Colors and Shapes */
+.active-cursor {
+  pointer-events: all;
+}
