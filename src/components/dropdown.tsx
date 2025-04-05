@@ -19,31 +19,27 @@ const DropdownButton = () => {
 
       {viewportWidth <= 480 ? (
         /* Conditionally render the mobile dropdown */
-        <div className={`dropdown-closed-mobile z-3 ${isOpen ? "dropdown-open-mobile" : ""}`}>
-          <button className={`dropdown-element" ${isOpen ? "active-cursor" : "remove-cursor"}`}> Home </button>
-          <button className={`dropdown-element" ${isOpen ? "active-cursor" : "remove-cursor"}`}> My Work </button>
-          <button className={`dropdown-element" ${isOpen ? "active-cursor" : "remove-cursor"}`}> My Resume </button>
-          <div className="divider"></div>
-          <button className={`dropdown-element ${isOpen ? "active-cursor" : "remove-cursor"}`}> Contact Me </button>
-        </div>
+        <div />
       ) : (
         /* Conditionally render the desktop dropdown */
-        <div className={`dropdown-closed dropdown-open z-3 ${isOpen ? "dropdown-open" : ""}`}>
-          <button className={`dropdown-element ${isOpen ? "active-cursor" : "remove-cursor"}`}> Home </button>
-          <button className={`dropdown-element ${isOpen ? "active-cursor" : "remove-cursor"}`}> My Work </button>
-          <button className={`dropdown-element ${isOpen ? "active-cursor" : "remove-cursor"}`}> My Resume </button>
-          <button className={`dropdown-element ${isOpen ? "active-cursor" : "remove-cursor"}`}> Contact Me </button>
+        <div className={`dropdown-closed dropdown-closed z-3 ${isOpen ? "dropdown-open" : ""}`}>
+            <div className="top-dd-elements dropdown-element">
+              <a href="#" className={`home ${isOpen ? "active-cursor" : "remove-cursor"}`}> Home </a>
+              <a href="#" className={`work ${isOpen ? "active-cursor" : "remove-cursor"}`}> My Work </a>
+              <a href="#" className={`resume ${isOpen ? "active-cursor" : "remove-cursor"}`}> My Résumé </a>
+              <a href="#" className={`contact ${isOpen ? "active-cursor" : "remove-cursor"}`}> Contact Me </a>
+            </div>
           <div className="social-container">
-            <div className="divider"/>
-            <button>
-              <Mail className={`"social-icon" ${isOpen ? "active-cursor" : "remove-cursor"}`}></Mail>
-            </button>
-            <button>
-              <Github className={`"social-icon" ${isOpen ? "active-cursor" : "remove-cursor"}`}></Github>
-            </button>
-            <button>
-              <Linkedin className={`"social-icon" ${isOpen ? "active-cursor" : "remove-cursor"}`}></Linkedin>
-            </button>
+            <div className={`divider-origin ${isOpen ? "divider-animation" : ""}`}/>
+            <a href="#">
+              <Mail className={`social-icon mail-icon ${isOpen ? "active-cursor" : "remove-cursor"}`}></Mail>
+            </a>
+            <a href="#">
+              <Github className={`social-icon github-icon ${isOpen ? "active-cursor" : "remove-cursor"}`}></Github>
+            </a>
+            <a href="#">
+              <Linkedin className={`social-icon linkedin-icon ${isOpen ? "active-cursor" : "remove-cursor"}`}></Linkedin>
+            </a>
           </div>
         </div>
       )}
