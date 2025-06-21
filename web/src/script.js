@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const navbar = document.querySelector('.navbar');
     const body = document.getElementById('body');
     
+    // Temporarily disabled to test navbar movement
+    /*
     window.addEventListener('scroll', function() {
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
@@ -42,4 +44,5 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
     }
+    */
 });
