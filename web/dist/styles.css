@@ -11,8 +11,9 @@ body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     background: linear-gradient(135deg, #ff6161 0%, #eeb124 100%);
     min-height: 100vh;
-    padding-top: 120px;
     width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 html {
@@ -24,10 +25,9 @@ html {
     top: 10px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(212, 212, 212, 0.7);
     backdrop-filter: blur(15px);
     border-radius: 10px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     padding: 1rem 2rem;
     border: 1px solid rgba(255, 255, 255, 0.2);
     margin: 0 auto 2rem auto;
@@ -70,53 +70,141 @@ html {
     background: rgba(102, 126, 234, 0.1);
 }
 
-.test-content {
-    background: rgba(255, 255, 255, 0.9);
+.welcome-content {
+    background: rgb(255, 255, 255);
     padding: 3rem;
     margin: 0;
-    width: 80%;
-    border-radius: 0 0 40px 0;
+    width: 100%;
+    min-height: 70vh; /* Extend to 80% of viewport height */
+    border-radius: 0 0 100px 0;
     text-align: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     position: relative;
     top: 0;
     left: 0;
     z-index: 5;
+    /* Vertical alignment options */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers content vertically */
+    align-items: center; /* Centers content horizontally */
 }
 
-.test-content h1 {
+.headshot {
+    z-index: 0;
+    position: fixed; /* Changed to fixed for parallax effect */
+    top: 150px;
+    width: 100%;
+    height: 120%; /* Increased height to make image taller */
+    object-fit: cover;
+    object-position: center 50%;  /* show more of the bottom portion */
+    transform: translateY(0); /* Will be animated with JavaScript */
+}
+
+.crop-box {
+    width: 100vw;        /* desired crop width */
+    height: 100vh;       /* desired crop height */
+    overflow: hidden;    /* hide overflow */
+    position: relative;
+    margin-top: -100px; /* Pull up to overlap with welcome content */
+}
+
+.bio-content {
+    background: rgba(255, 255, 255, 1);
+    padding: 3rem;
+    margin: 0;
+    width: 100%;
+    min-height: 70vh; /* Extend to 80% of viewport height */
+    border-radius: 100px 0 0 0;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+    top: 0px; /* Reduced pull-up to create bigger gap */
+    left: 0;
+    z-index: 5;
+    /* Vertical alignment options */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers content vertically */
+    align-items: center; /* Centers content horizontally */
+}
+
+/* Vector recoil box styling */
+.vector-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none; /* Allow mouse events to pass through */
+    z-index: 10;
+}
+
+.vector-box {
+    width: 64px; /* w-16 = 4rem = 64px */
+    height: 64px; /* h-16 = 4rem = 64px */
+    background-color: #6b7280; /* bg-gray-500 */
+    border-radius: 4px;
+    transition: transform 0.1s ease-out;
+}
+
+/* Projects page styling */
+.projects-content {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 3rem;
+    margin: 2rem auto;
+    width: 80%;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+}
+
+.projects-content h1 {
     font-size: 2.5rem;
     color: #333;
     margin-bottom: 1rem;
 }
 
-.test-content p {
+.projects-content p {
     font-size: 1.2rem;
     color: #666;
     margin-bottom: 1rem;
 }
 
-.scroll-area {
-    height: 2000px;
-    background: rgba(255, 255, 255, 0.1);
-    margin: 2rem auto;
-    width: 70%;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-align: center;
-    padding: 2rem;
+/* White overlay for page transitions */
+.overlay {
+    position: fixed;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 9999;
+    pointer-events: none;
+    transition: top 0.5s ease;
 }
 
-.scroll-area h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+/* Slide down */
+.overlay.active {
+    top: 0;
 }
 
-.scroll-area p {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
+/* Slide up after page loads */
+body.loaded .overlay {
+    top: -100%;
+}
+
+/* Ensure overlay is visible when page first loads */
+body:not(.loaded) .overlay {
+    top: 0;
 }

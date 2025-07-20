@@ -1,48 +1,84 @@
-// Add scroll effect for header blur
-document.addEventListener('DOMContentLoaded', function() {
-    const navbar = document.querySelector('.navbar');
-    const body = document.getElementById('body');
-    
-    // Temporarily disabled to test navbar movement
-    /*
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-            // Add blur to content behind header
-            if (body) {
-                body.style.filter = 'blur(3px)';
-            }
-        } else {
-            navbar.classList.remove('scrolled');
-            // Remove blur from content
-            if (body) {
-                body.style.filter = 'blur(0px)';
-            }
-        }
-    });
-    
-    // Add some sample content to demonstrate the blur effect
-    if (body) {
-        body.innerHTML = `
-            <div style="padding: 2rem; color: white; text-align: center;">
-                <h1 style="font-size: 3rem; margin-bottom: 1rem;">Welcome to My Portfolio</h1>
-                <p style="font-size: 1.2rem; margin-bottom: 2rem;">Scroll down to see the blur effect in action!</p>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem;">
-                    <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 15px; backdrop-filter: blur(10px);">
-                        <h3>About Me</h3>
-                        <p>Computer Science student passionate about creating innovative solutions.</p>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 15px; backdrop-filter: blur(10px);">
-                        <h3>Projects</h3>
-                        <p>Check out my latest projects and contributions to the tech community.</p>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 15px; backdrop-filter: blur(10px);">
-                        <h3>Skills</h3>
-                        <p>Proficient in various programming languages and technologies.</p>
-                    </div>
-                </div>
-            </div>
-        `;
+document.addEventListener('DOMContentLoaded', function () {
+    const maxScroll = () => document.documentElement.scrollHeight - document.documentElement.clientHeight;
+
+    // Parallax effect for the image
+    function handleParallax() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const headshot = document.querySelector('.headshot');
+      
+      if (headshot) {
+        // Move image slower than scroll (0.5 = half speed, 0.3 = 30% speed, etc.)
+        const parallaxSpeed = 0.5; // Adjust this value to control parallax intensity
+        const yPos = -(scrollTop * parallaxSpeed);
+        headshot.style.transform = `translateY(${yPos}px)`;
+      }
     }
-    */
-});
+
+    // Clamp scroll on scroll event
+    function enforceScrollLimits() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const max = maxScroll();
+
+      if (scrollTop <= 0) {
+        window.scrollTo(0, 0);
+      } else if (scrollTop >= max) {
+        window.scrollTo(0, max);
+      }
+    }
+
+    // Combined scroll handler
+    function handleScroll() {
+      enforceScrollLimits();
+      handleParallax();
+    }
+
+    // Wheel: desktop scroll
+    function handleWheel(e) {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const max = maxScroll();
+
+      if ((e.deltaY < 0 && scrollTop <= 0) || (e.deltaY > 0 && scrollTop >= max)) {
+        e.preventDefault();
+      }
+    }
+
+    // Touch: mobile scroll
+    let startY = 0;
+    function handleTouchStart(e) {
+      startY = e.touches[0].clientY;
+    }
+
+    function handleTouchMove(e) {
+      const currentY = e.touches[0].clientY;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const max = maxScroll();
+      const deltaY = startY - currentY;
+
+      if ((deltaY < 0 && scrollTop <= 0) || (deltaY > 0 && scrollTop >= max)) {
+        e.preventDefault();
+      }
+    }
+
+    // Key scroll: arrows, page up/down
+    function handleKeyDown(e) {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const max = maxScroll();
+      const keys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', ' '];
+
+      if (
+        keys.includes(e.key) &&
+        ((scrollTop <= 0 && (e.key === 'ArrowUp' || e.key === 'PageUp')) ||
+          (scrollTop >= max && (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ')))
+      ) {
+        e.preventDefault();
+      }
+    }
+
+    // Add event listeners
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    document.addEventListener('touchstart', handleTouchStart, { passive: false });
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    document.addEventListener('keydown', handleKeyDown, { passive: false });
+  });
+  
