@@ -1,38 +1,47 @@
 document.addEventListener('DOMContentLoaded', function () {
-    let displayOffset = { 
-        x: 0, 
-        y: 0
-    };
-
-    let vectorOffset = {
-        x: 0,
-        y: 0
-    };
+    // Array to store offsets for each vector box
+    const vectorBoxes = document.querySelectorAll('.vector-box');
+    const displayOffsets = [];
+    const vectorOffsets = [];
+    
+    // Initialize offsets for each box
+    vectorBoxes.forEach((box, index) => {
+        displayOffsets[index] = { x: 0, y: 0 };
+        vectorOffsets[index] = { x: 0, y: 0 };
+    });
+    
     
     const magnitude = 0.1;
-    const damping = 0.01;
+    const damping = 0.1;
     let animationFrameID;
 
     function handleMouseMove(event) {
         const rectCenterX = window.innerWidth / 2;
         const rectCenterY = window.innerHeight / 2;
-        const vectorOffsetX = (rectCenterX - event.clientX) * magnitude;
-        const vectorOffsetY = (rectCenterY - event.clientY) * magnitude;
-        vectorOffset = { x: vectorOffsetX, y: vectorOffsetY };
+        
+        // Calculate offset for each box based on its position
+        vectorBoxes.forEach((box, index) => {
+            const boxRect = box.getBoundingClientRect();
+            const boxCenterX = boxRect.left + boxRect.width / 2;
+            const boxCenterY = boxRect.top + boxRect.height / 2;
+            
+            const vectorOffsetX = (boxCenterX - event.clientX) * magnitude;
+            const vectorOffsetY = (boxCenterY - event.clientY) * magnitude;
+            vectorOffsets[index] = { x: vectorOffsetX, y: vectorOffsetY };
+        });
     }
 
     function animate() {
-        const dx = vectorOffset.x - displayOffset.x;
-        const dy = vectorOffset.y - displayOffset.y;
+        vectorBoxes.forEach((box, index) => {
+            const dx = vectorOffsets[index].x - displayOffsets[index].x;
+            const dy = vectorOffsets[index].y - displayOffsets[index].y;
 
-        displayOffset.x += dx * damping;
-        displayOffset.y += dy * damping;
+            displayOffsets[index].x += dx * damping;
+            displayOffsets[index].y += dy * damping;
 
-        // Apply transform to the vector box
-        const vectorBox = document.querySelector('.vector-box');
-        if (vectorBox) {
-            vectorBox.style.transform = `translate(${displayOffset.x}px, ${displayOffset.y}px)`;
-        }
+            // Apply transform to each vector box
+            box.style.transform = `translate(${displayOffsets[index].x}px, ${displayOffsets[index].y}px)`;
+        });
 
         animationFrameID = requestAnimationFrame(animate);
     }
@@ -80,4 +89,4 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 600); // Wait for overlay animation
         });
     });
-}); 
+});
