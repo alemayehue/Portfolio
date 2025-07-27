@@ -1,92 +1,105 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Array to store offsets for each vector box
     const vectorBoxes = document.querySelectorAll('.vector-box');
     const displayOffsets = [];
     const vectorOffsets = [];
-    
-    // Initialize offsets for each box
-    vectorBoxes.forEach((box, index) => {
+    const phaseOffsets = [];
+
+    // Customizable parameters
+    const dampingIdle = 0.001;         // Slow easing for idle sway
+    const dampingActive = 0.05;        // Faster easing when reacting to mouse
+    const idleFrequency = 0.001;      // Frequency of sine wave for idle motion
+    const idleAmplitude = 10;          // Amplitude of sine wave for idle motion
+    const idleRandomness = 2;       // Small random noise for natural sway
+
+    vectorBoxes.forEach((_, index) => {
         displayOffsets[index] = { x: 0, y: 0 };
         vectorOffsets[index] = { x: 0, y: 0 };
+        phaseOffsets[index] = Math.random() * 2 * Math.PI; // unique phase per box
     });
-    
-    
-    const magnitude = 0.1;
-    const damping = 0.1;
+
     let animationFrameID;
+    let lastMouseMoveTime = Date.now();
+
+    let lastMouseX = window.innerWidth / 2;
+    let lastMouseY = window.innerHeight / 2;
 
     function handleMouseMove(event) {
-        const rectCenterX = window.innerWidth / 2;
-        const rectCenterY = window.innerHeight / 2;
-        
-        // Calculate offset for each box based on its position
+        lastMouseMoveTime = Date.now();
+        lastMouseX = event.clientX;
+        lastMouseY = event.clientY;
+    }
+
+    function animate() {
+        let lastScrollY = window.scrollY;
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', () => {
+        const currentScroll = window.scrollY;
+
+        if (currentScroll > lastScrollY && currentScroll > 50) {
+            // Scrolling down
+            navbar.classList.add('hidden');
+        } else {
+            // Scrolling up
+            navbar.classList.remove('hidden');
+        }
+
+        lastScrollY = currentScroll;
+        });
+
+        const now = Date.now();
+        const isIdle = now - lastMouseMoveTime > 1000;
+        const maxDistance = Math.sqrt(window.innerWidth ** 2 + window.innerHeight ** 2);
+
         vectorBoxes.forEach((box, index) => {
             const boxRect = box.getBoundingClientRect();
             const boxCenterX = boxRect.left + boxRect.width / 2;
             const boxCenterY = boxRect.top + boxRect.height / 2;
-            
-            const vectorOffsetX = (boxCenterX - event.clientX) * magnitude;
-            const vectorOffsetY = (boxCenterY - event.clientY) * magnitude;
-            vectorOffsets[index] = { x: vectorOffsetX, y: vectorOffsetY };
-        });
-    }
 
-    function animate() {
-        vectorBoxes.forEach((box, index) => {
-            const dx = vectorOffsets[index].x - displayOffsets[index].x;
-            const dy = vectorOffsets[index].y - displayOffsets[index].y;
+            let targetX, targetY;
+            let damping;
 
-            displayOffsets[index].x += dx * damping;
-            displayOffsets[index].y += dy * damping;
+            if (isIdle) {
+                // Idle sine wave position + gentle randomness
+                targetX = Math.sin(now * idleFrequency + phaseOffsets[index]) * idleAmplitude
+                          + (Math.random() - 0.5) * idleRandomness;
+                targetY = Math.cos(now * idleFrequency + phaseOffsets[index]) * idleAmplitude
+                          + (Math.random() - 0.5) * idleRandomness;
+                damping = dampingIdle;
+            } else {
+                // Mouse-follow vector scaled by distance
+                const dx = boxCenterX - lastMouseX;
+                const dy = boxCenterY - lastMouseY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                const normalized = 1 - distance / maxDistance;
+                const magnitude = normalized * 0.25;
 
-            // Apply transform to each vector box
+                targetX = dx * magnitude;
+                targetY = dy * magnitude;
+                damping = dampingActive;
+            }
+
+            vectorOffsets[index].x = targetX;
+            vectorOffsets[index].y = targetY;
+
+            // Smoothly interpolate displayOffsets toward vectorOffsets using damping
+            const deltaX = targetX - displayOffsets[index].x;
+            const deltaY = targetY - displayOffsets[index].y;
+
+            displayOffsets[index].x += deltaX * damping;
+            displayOffsets[index].y += deltaY * damping;
+
             box.style.transform = `translate(${displayOffsets[index].x}px, ${displayOffsets[index].y}px)`;
         });
 
         animationFrameID = requestAnimationFrame(animate);
     }
 
-    // Start vector animation
-    function startVectorAnimation() {
-        window.addEventListener('mousemove', handleMouseMove);
-        animate();
-    }
+    window.addEventListener('mousemove', handleMouseMove);
+    animate();
 
-    // Start vector animation
-    startVectorAnimation();
-
-    // Cleanup function
-    function cleanup() {
-        if (animationFrameID) {
-            cancelAnimationFrame(animationFrameID);
-        }
+    window.addEventListener('beforeunload', () => {
+        cancelAnimationFrame(animationFrameID);
         window.removeEventListener('mousemove', handleMouseMove);
-    }
-
-    // Cleanup on page unload
-    window.addEventListener('beforeunload', cleanup);
-
-    // Page transition overlay functionality
-    const links = document.querySelectorAll('.transition-link');
-    const overlay = document.getElementById('transitionOverlay');
-
-    // On page load, trigger slide-up after a short delay
-    setTimeout(() => {
-        document.body.classList.add('loaded');
-    }, 100);
-
-    links.forEach(link => {
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetUrl = this.getAttribute('href');
-            
-            // Ensure overlay is visible and slide down
-            overlay.style.top = '0';
-            overlay.classList.add('active');
-            
-            setTimeout(() => {
-                window.location.href = targetUrl;
-            }, 600); // Wait for overlay animation
-        });
     });
 });

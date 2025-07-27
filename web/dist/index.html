@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meet Elias Alemayehu</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Elias Alemayehu</title>
+    <link rel="stylesheet" href="index.css">
     <link rel="preload" as="image" href="assets/meta_pic.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    </head>
+</head>
 
 <body>
     <div class="overlay" id="transitionOverlay"></div>
@@ -30,11 +30,21 @@
     </div>
 
     <main>
-        <div class="welcome-content">
-            <h1>Welcome to My Portfolio</h1>
-            <p>This is where the greeting will go.</p>
-            <p>Scroll down to see the navbar stick to the top!</p>
+        <div class="section-content welcome-content">
+            <div class="welcome-left">
+                <h1 class="greeting-name"> Hi, my<br>
+                    name is <strong>Elias.</strong>
+                </h1>
+                <div class="accent-line"></div>
+            </div>
+            <div class="welcome-right">
+                <img src="./assets/SCU_Seal.png" alt="SCU" class="scu-seal ">
+                <li class="circle-arrow"></li>
+
+            </div>
         </div>
+
+        <!-- <p>I'm a Computer Science & Engineering student and Software Engineer from Santa Clara University.</p> -->
 
         <div class="crop-box">
             <!-- <img src="assets/IMG_3830.jpeg" alt="Profile Picture" class="headshot" /> -->
@@ -42,16 +52,24 @@
             <img src="assets/meta_pic.jpg" alt="Profile Picture" class="headshot"/>
         </div>
 
-        <div class="bio-content">
+        <div class="section-content bio-content">
             <h1>This is where the bio-content will go</h1>
             <p>Bottom Text.</p>
         </div>
 
-        <div class="project-content">
+        <div class="section-content project-content">
 
+        </div>
+
+        <div class="section-content bottom-content">
+
+        </div>
+
+        <div class="section-content footer-content">
+            <h1 class="footer-text">Footer Content</h1>
         </div>
     </main>
     
-    <script src="../src/script.js"></script>
+    <script src="../src/scroll.js"></script>
 </body>
 </html>
