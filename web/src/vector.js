@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Customizable parameters
     const dampingIdle = 0.001;         // Slow easing for idle sway
-    const dampingActive = 0.05;        // Faster easing when reacting to mouse
+    const dampingActive = 0.01;        // Faster easing when reacting to mouse
     const idleFrequency = 0.001;      // Frequency of sine wave for idle motion
     const idleAmplitude = 10;          // Amplitude of sine wave for idle motion
     const idleRandomness = 2;       // Small random noise for natural sway

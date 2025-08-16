@@ -18,3 +18,6 @@
 
 ### Clean Design, Animations, Components
     https://gachiakuta-anime.com/en/
+
+### Helpful Guide
+    https://www.youtube.com/watch?v=WAV66F-Zbio&list=WL&index=29
