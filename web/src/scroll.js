@@ -1,3 +1,13 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const logo = document.querySelector('.logo');
+    if (logo) {
+        logo.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+});
+
 function setupScrollLogic() {
   const maxScroll = () =>
     document.documentElement.scrollHeight - document.documentElement.clientHeight;

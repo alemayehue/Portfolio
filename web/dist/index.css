@@ -51,7 +51,7 @@ html {
 }
 
 .logo {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     font-weight: bold;
     color: var(--raisin-black);
     text-decoration: none;
@@ -143,7 +143,7 @@ html {
     height: 0.3rem;
     width: 15rem;
     background: linear-gradient(to right, var(--primary-accent) 50%, var(--secondary-accent) 50%);
-    align-self: flex-start; /* aligns with left edge of h1 */
+    align-self: flex-start;
 }
 
 
@@ -161,7 +161,6 @@ html {
     bottom: 4rem;
     right: 4rem;
     display: inline-block;
-    /* No animation here */
 }
 
 .circle-arrow::after {
@@ -182,11 +181,9 @@ html {
         transform: translate(-50%, -50%) rotate(-45deg);
     }
     50% {
-        transform: translate(-50%, -75%) rotate(-45deg); /* move arrow up */
+        transform: translate(-50%, -75%) rotate(-45deg);
     }
 }
-
-
 
 .bio-content {
     background: #fff;
@@ -210,15 +207,59 @@ html {
 
 .footer-content {
     position: sticky;
-    background: var(--raisin-black);
-    min-height: 70vh;
-    margin-top: -12vh;
     bottom: 0;
-    z-index: 1;
+    background: var(--raisin-black);
+    min-height: 60vh;
+    margin-top: -12vh;
+    padding: 3rem 2rem;
+    display: flex;
+    z-index: 0;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.footer-text {
+.footer-links {
+    display: flex;
+    flex-direction: row;   /* Icons side by side */
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;             /* Space between icons */
+    flex-wrap: wrap;       /* Wrap if screen is too small */
+    margin-bottom: 2rem;
+}
+
+.icon-badge {
+    display: inline-flex;              /* icon + text side by side */
+    align-items: center;
+    gap: 0.75rem;                      /* spacing between icon and text */
+    border: 2px solid var(--anti-flash-white);
+    border-radius: 2rem;               /* pill-shaped rounded border */
+    padding: 0.5rem 1rem;
     color: var(--anti-flash-white);
+    text-decoration: none;             /* remove underline if <a> */
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.icon-badge:hover {
+    background: var(--secondary-accent);
+    border-color: var(--secondary-accent);
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.icon-badge img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    flex-shrink: 0; /* prevents icon from shrinking */
+}
+
+.icon-badge img {
+  filter: brightness(0) invert(1);
 }
 
 .headshot {

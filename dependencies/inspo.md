@@ -21,3 +21,15 @@
 
 ### Helpful Guide
     https://www.youtube.com/watch?v=WAV66F-Zbio&list=WL&index=29
+
+### Good Dev Portfolio
+    https://igamble.dev/#hero
+
+### A Better One
+    https://www.dominic-parker.com/
+
+### Probably Best One
+    https://laoluoguneye.com/
+
+### NVM WE FOUND BETTER
+    https://anirudlappathi.com/
