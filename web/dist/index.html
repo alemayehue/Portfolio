@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elias Alemayehu</title>
+    <title>Elias' Portfolio</title>
     <link rel="stylesheet" href="index.css">
     <link rel="preload" as="image" href="assets/meta_pic.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,7 +13,13 @@
 </head>
 
 <body>
+    <!-- <div id="loader">
+        <div class="spinner"></div>
+    </div> -->
+
     <div class="overlay" id="transitionOverlay"></div>
+    <div id="transition"></div>
+    
 
     <div class="navbar">
         <div class="header-content">
@@ -38,57 +44,173 @@
                 <div class="accent-line"></div>
             </div>
             <div class="welcome-right">
-                <img src="./assets/SCU_Seal.png" alt="SCU" class="scu-seal ">
+                <img src="./assets/SCU_Seal.png" alt="SCU" class="scu-seal">
                 <li class="circle-arrow"></li>
 
             </div>
         </div>
 
-        <!-- <p>I'm a Computer Science & Engineering student and Software Engineer from Santa Clara University.</p> -->
-
         <div class="crop-box">
-            <!-- <img src="assets/IMG_3830.jpeg" alt="Profile Picture" class="headshot" /> -->
-            <!-- <img src="assets/IMG_3838.jpeg" alt="Profile Picture" class="headshot" /> -->
             <img src="assets/meta_pic.jpg" alt="Profile Picture" class="headshot"/>
         </div>
 
-        <div class="section-content bio-content">
-            <h1>This is where the bio-content will go</h1>
-            <p>Bottom Text.</p>
+
+        <div class="section-content">
+            <div class="bio-content">
+            <div class="bio-left">
+                <h2>About Me</h2>
+                <p>
+                    I’m Elias, a software engineer passionate about building scalable systems and creating intuitive solutions
+                    to everyday problems. I'm a rising junior at Santa Clara University studying Computer Science & Engineering
+                    and currently am a software development intern at The Hivery in Mill Valley, CA.
+                </p>
+
+                <br>
+
+                <p>
+                    On campus and beyond, I’ve been passionate about creating spaces that help others grow in technology. I’ve 
+                    mentored peers in computer science courses, sharing insights on systems programming and data structures, and 
+                    extended that impact by creating a YouTube channel dedicated to teaching programming concepts. I also use 
+                    LinkedIn as a platform to share lessons learned and advice for students entering the field, building on years 
+                    of tutoring and mentoring experience.
+                </p>
+
+                <br>
+
+                <p>
+                    I’ve gained hands-on experience through internships, hackathons, and collaborations where I worked on 
+                    building scalable backend systems, optimizing algorithms and queries, and developing fullstack applications.
+                </p>
+            </div>
+
+            <div class="bio-right">
+                <img src="assets/meta_pic.jpg" alt="Elias Alemayehu" class="bio-image">
+            </div>
+            </div>
+
+            <section class="scroll-grid">
+                <div class="grid">
+                    <div class="grid-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" />
+                        <span> AWS </span>
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-plain.svg" />
+                        <span> C++ </span>
+                    </div>
+                    <div class="grid-item">
+                        <img src="./assets/nvidia.webp" />
+                        <span> CUDA </span>
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-plain.svg" />
+                        <span> Docker </span>
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg" />
+                        <span> Flask </span>
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" />
+                        <span> Git </span>
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-plain.svg" />
+                        <span> HTML </span>
+                    </div>
+
+                    <div class="grid-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-plain.svg" />
+                        <span> JavaScript </span>
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" />
+                        <span> MySQL </span>
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original-wordmark.svg" />
+                        <span> Node.js </span>
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" />
+                        <span> NumPy </span>
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" />
+                        <span> Pandas </span>
+
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" />
+                        <span> Python </span>
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg" />
+                        <span> PyTorch </span>
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" />
+                        <span> React </span>    
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/swift/swift-plain.svg" />
+                        <span> Swift </span>
+                    </div>
+                </div>
+            </section>
         </div>
 
+
+
         <div class="section-content project-content">
+            <h1>This is where the experience-content will go</h1>
+            <p>Bottom Text.</p>
+
+            <button class="project-btn" id="goToProjects">Go to Projects</button>
 
         </div>
 
         <div class="section-content bottom-content">
-
+            <h1>This is where the bottom-content will go</h1>
+            <p>Bottom Text.</p>
         </div>
+
+        <div class="footer-placeholder"></div>
 
         <div class="section-content footer-content">
             <h1 class="footer-text">
                 Contact Me
             </h1>
+
             <div class="footer-links">
 
-                <!-- Example as a link -->
                 <a href="https://github.com/" class="icon-badge">
-                <img src="assets/github.svg" alt="GitHub">
-                <span>My GitHub</span>
+                    <img src="assets/github.svg" alt="GitHub">
+                    <span>My GitHub</span>
                 </a>
 
                 <a href="https://linkedin.com/" class="icon-badge">
-                <img src="assets/linkedin.svg" alt="LinkedIn">
-                <span>My LinkedIn</span>
+                    <img src="assets/linkedin.svg" alt="LinkedIn">
+                    <span>My LinkedIn</span>
+                </a>
+
+                <a href="https://youtube.com/" class="icon-badge">
+                    <img src="assets/youtube.svg" alt="YouTube">
+                    <span>My YouTube</span>
                 </a>
 
             </div>
+
             <div class="footer-text" style="margin-top:1rem;">
-                2025 Elias Alemayehu. All rights reserved.
+                &copy; 2025 Elias Alemayehu. All rights reserved.
             </div>
         </div>
     </main>
     
     <script src="../src/scroll.js"></script>
+    <script src="../src/load.js"></script>
+    <script src="../src/projects.js"></script>
+    <script src="../src/techScroll.js"></script>
+
 </body>
 </html>

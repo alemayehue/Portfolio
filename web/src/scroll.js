@@ -1,20 +1,38 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const logo = document.querySelector('.logo');
-    if (logo) {
-        logo.addEventListener('click', function(e) {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
+  // Scroll to top when clicking the logo
+  const logo = document.querySelector('.logo');
+  if (logo) {
+    logo.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  setupScrollLogic();
 });
 
+window.addEventListener('load', () => {
+  setupTransitions();
+  document.body.classList.add('loaded');
+});
+
+/* -----------------------
+   Scroll + Parallax Logic
+------------------------ */
 function setupScrollLogic() {
   const maxScroll = () =>
     document.documentElement.scrollHeight - document.documentElement.clientHeight;
 
-  function handleParallax() {
-    const scrollTop = window.scrollY;
-    const headshot = document.querySelector('.headshot');
+  const headshot = document.querySelector('.headshot');
+  const navbar = document.querySelector('.navbar');
+
+  let ticking = false;
+  let lastScrollY = window.scrollY;
+  let isHidden = false;
+  let upStreak = 0;
+
+
+  function handleParallax(scrollTop) {
     if (headshot) {
       const parallaxSpeed = 0.5;
       const yPos = -(scrollTop * parallaxSpeed);
@@ -22,22 +40,37 @@ function setupScrollLogic() {
     }
   }
 
-  function enforceScrollLimits() {
-    const scrollTop = window.scrollY;
+  function enforceScrollLimits(scrollTop) {
     const max = maxScroll();
-
-    if (scrollTop <= 0.5) {
-      window.scrollTo(0, 0);
-    } else if (scrollTop >= max - 0.5) {
-      window.scrollTo(0, max);
+    if (scrollTop < 0) {
+      window.scrollTo({ top: 0 });
+    } else if (scrollTop > max) {
+      window.scrollTo({ top: max });
     }
   }
 
-  function handleScroll() {
-    enforceScrollLimits();
-    handleParallax();
+  function update() {
+    const scrollTop = window.scrollY;
+    const deltaY = scrollTop - lastScrollY;
+
+    enforceScrollLimits(scrollTop);
+    handleParallax(scrollTop);
+
+    lastScrollY = scrollTop;
+    ticking = false;
   }
 
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  }
+
+  // Attach listeners
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Prevent overscroll on wheel/touch/keys
   function handleWheel(e) {
     const scrollTop = window.scrollY;
     const max = maxScroll();
@@ -50,7 +83,6 @@ function setupScrollLogic() {
   function handleTouchStart(e) {
     startY = e.touches[0].clientY;
   }
-
   function handleTouchMove(e) {
     const currentY = e.touches[0].clientY;
     const deltaY = startY - currentY;
@@ -66,7 +98,6 @@ function setupScrollLogic() {
     const scrollTop = window.scrollY;
     const max = maxScroll();
     const keys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', ' '];
-
     if (
       keys.includes(e.key) &&
       ((scrollTop <= 0 && ['ArrowUp', 'PageUp'].includes(e.key)) ||
@@ -76,8 +107,6 @@ function setupScrollLogic() {
     }
   }
 
-  // Add event listeners
-  window.addEventListener('scroll', handleScroll);
   window.addEventListener('wheel', handleWheel, { passive: false });
   document.addEventListener('touchstart', handleTouchStart, { passive: false });
   document.addEventListener('touchmove', handleTouchMove, { passive: false });
@@ -87,6 +116,9 @@ function setupScrollLogic() {
   window.scrollTo(0, 0);
 }
 
+/* -----------------------
+   Page Transitions
+------------------------ */
 function setupTransitions() {
   const links = document.querySelectorAll('.transition-link');
   const overlay = document.getElementById('transitionOverlay');
@@ -102,14 +134,3 @@ function setupTransitions() {
     });
   });
 }
-
-// DOM setup
-document.addEventListener('DOMContentLoaded', () => {
-  setupScrollLogic();
-});
-
-// Page fully loaded
-window.addEventListener('load', () => {
-  setupTransitions();
-  document.body.classList.add('loaded');
-});

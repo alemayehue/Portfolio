@@ -2,7 +2,7 @@ let lastScrollY = window.scrollY;
 const navbar = document.querySelector(".navbar");
 let isHidden = false;
 let upStreak = 0;
-const upThreshold = 200; // Scroll up this many pixels in a row to show navbar
+const upThreshold = 400; // Scroll up this many pixels in a row to show navbar
 const alwaysShowTopPx = 100; // Always show navbar if scrollY is within this range
 
 function handleNavbarScroll() {
