@@ -30,13 +30,27 @@ function setupScrollLogic() {
   let lastScrollY = window.scrollY;
   let isHidden = false;
   let upStreak = 0;
+  let pageLoadTime = Date.now();
 
 
   function handleParallax(scrollTop) {
     if (headshot) {
       const parallaxSpeed = 0.5;
       const yPos = -(scrollTop * parallaxSpeed);
-      headshot.style.transform = `translateY(${yPos}px)`;
+      // Apply parallax with current scale (starts at 1.3, animates to 1)
+      const currentTime = Date.now();
+      const elapsed = currentTime - pageLoadTime;
+      const animationDuration = 2000; // 2 seconds
+      
+      if (elapsed < animationDuration) {
+        // During zoom animation, interpolate between 1.3 and 1
+        const progress = elapsed / animationDuration;
+        const currentScale = 1.3 - (0.3 * progress);
+        headshot.style.transform = `translateY(${yPos}px) scale(${currentScale})`;
+      } else {
+        // After animation, use normal scale
+        headshot.style.transform = `translateY(${yPos}px) scale(1)`;
+      }
     }
   }
 
