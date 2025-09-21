@@ -88,6 +88,9 @@ body {
   border-radius: 9999px;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.2s ease;
+  position: relative;
+  z-index: 10;
+  margin-top: 2rem;
 }
 
 /* Navbar */
@@ -434,29 +437,26 @@ body {
 }
 
 .projects-showcase {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  background: #fff;
   min-height: 100vh;
   border-radius: var(--radius-large);
   margin-top: calc(-1 * var(--radius-large));
   padding: 4rem 2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .projects-showcase h1 {
-  color: #ffffff;
+  color: var(--raisin-black);
   font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 700;
   text-align: center;
   margin-bottom: 1rem;
   letter-spacing: -0.02em;
-  background: linear-gradient(135deg, #ffffff 0%, #e8e8e8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
 }
 
 .projects-subtitle {
-  color: #e8e8e8;
+  color: #666;
   font-size: 1.2rem;
   text-align: center;
   margin-bottom: 3rem;
@@ -473,27 +473,23 @@ body {
 }
 
 .project-card {
-  background: rgba(255, 255, 255, 0.15);
+  background: #fff;
   border-radius: 1rem;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(15px);
+  border: 1px solid #f0f0f0;
 }
 
 .project-card:hover {
   transform: translateY(-0.5rem);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-  border-color: rgba(255, 255, 255, 0.4);
-  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
 
 .project-image {
   position: relative;
-  height: 200px;
+  height: 250px;
   overflow: hidden;
-  width: 100%;
 }
 
 .project-image img {
@@ -557,12 +553,10 @@ body {
 
 .project-content {
   padding: 2rem;
-  position: relative;
-  background: transparent;
 }
 
 .project-content h3 {
-  color: #ffffff;
+  color: var(--raisin-black);
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
@@ -570,7 +564,7 @@ body {
 }
 
 .project-description {
-  color: #e8e8e8;
+  color: #666;
   line-height: 1.6;
   margin-bottom: 1.5rem;
   font-size: 1rem;
@@ -600,13 +594,13 @@ body {
 }
 
 .stat {
-  color: #ffffff;
+  color: var(--raisin-black);
   font-weight: 600;
   font-size: 0.9rem;
   padding: 0.5rem 1rem;
-  background: rgba(255, 255, 255, 0.2);
+  background: #f8f9fa;
   border-radius: 0.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid #e9ecef;
 }
 
 .footer-content {
