@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const vectorBoxes = document.querySelectorAll('.vector-box');
+    const vectorBoxes = document.querySelectorAll('.vector-box, .modern-project-card');
     const displayOffsets = [];
     const vectorOffsets = [];
     const phaseOffsets = [];
