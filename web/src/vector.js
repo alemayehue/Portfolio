@@ -30,22 +30,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function animate() {
-        let lastScrollY = window.scrollY;
-        const navbar = document.querySelector('.navbar');
-
-        window.addEventListener('scroll', () => {
-        const currentScroll = window.scrollY;
-
-        if (currentScroll > lastScrollY && currentScroll > 50) {
-            // Scrolling down
-            navbar.classList.add('hidden');
-        } else {
-            // Scrolling up
-            navbar.classList.remove('hidden');
-        }
-
-        lastScrollY = currentScroll;
-        });
 
         const now = Date.now();
         const isIdle = now - lastMouseMoveTime > 1000;

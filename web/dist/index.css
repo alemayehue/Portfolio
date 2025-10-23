@@ -24,8 +24,8 @@ html {
   font-size: 100%;
   scroll-behavior: smooth;
   max-width: 100%;
-  overflow-x: hidden;
-  overscroll-behavior: none;
+  overflow-x: auto;
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -37,8 +37,8 @@ body {
   margin: 0;
   padding: 0;
   max-width: 100%;
-  overflow-x: hidden;
-  overscroll-behavior: none;
+  overflow-x: auto;
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -433,7 +433,7 @@ body {
   padding: 4rem 2rem;
   position: relative;
   z-index: 6;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .projects-showcase h1 {
@@ -810,6 +810,63 @@ body {
   box-shadow: 0 6px 16px rgba(78, 205, 196, 0.5);
 }
 
+/* Projects Button */
+.projects-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+}
+
+.projects-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, var(--primary-accent) 0%, var(--secondary-accent) 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 2rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(0, 180, 216, 0.3);
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.projects-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.projects-button:hover::before {
+  left: 100%;
+}
+
+.projects-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 180, 216, 0.4);
+  background: linear-gradient(135deg, var(--secondary-accent) 0%, var(--primary-accent) 100%);
+}
+
+.button-arrow {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.projects-button:hover .button-arrow {
+  transform: translateX(4px);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .experience-item {
@@ -824,6 +881,11 @@ body {
   .experience-content {
     padding-left: 0;
     padding-top: 1rem;
+  }
+  
+  .projects-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
   }
 }
 

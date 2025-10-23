@@ -42,20 +42,11 @@ function setupScrollLogic() {
     }
   }
 
-  function enforceScrollLimits(scrollTop) {
-    const max = maxScroll();
-    if (scrollTop < 0) {
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    } else if (scrollTop > max) {
-      window.scrollTo({ top: max, behavior: 'instant' });
-    }
-  }
 
   function update() {
     const scrollTop = window.scrollY;
     const deltaY = scrollTop - lastScrollY;
 
-    enforceScrollLimits(scrollTop);
     handleParallax(scrollTop);
 
     lastScrollY = scrollTop;
@@ -71,95 +62,8 @@ function setupScrollLogic() {
 
   // Attach listeners
   window.addEventListener('scroll', onScroll, { passive: true });
-  
-  // Aggressive scroll boundary enforcement to handle momentum scrolling
-  let isCorrectingScroll = false;
-  window.addEventListener('scroll', function() {
-    if (isCorrectingScroll) return; // Prevent infinite loops
-    
-    const currentScroll = window.scrollY;
-    const max = maxScroll();
-    
-    if (currentScroll < 0) {
-      isCorrectingScroll = true;
-      window.scrollTo({ top: 0, behavior: 'instant' });
-      setTimeout(() => { isCorrectingScroll = false; }, 10);
-    } else if (currentScroll > max) {
-      isCorrectingScroll = true;
-      window.scrollTo({ top: max, behavior: 'instant' });
-      setTimeout(() => { isCorrectingScroll = false; }, 10);
-    }
-  }, { passive: true });
 
-  // Prevent overscroll on wheel/touch/keys
-  function handleWheel(e) {
-    const scrollTop = window.scrollY;
-    const max = maxScroll();
-    // Prevent scrolling above y=0 or below max scroll
-    if ((e.deltaY < 0 && scrollTop <= 0) || (e.deltaY > 0 && scrollTop >= max)) {
-      e.preventDefault();
-      e.stopPropagation();
-      e.stopImmediatePropagation();
-      return false;
-    }
-  }
 
-  let startY = 0;
-  function handleTouchStart(e) {
-    startY = e.touches[0].clientY;
-  }
-  function handleTouchMove(e) {
-    const currentY = e.touches[0].clientY;
-    const deltaY = startY - currentY;
-    const scrollTop = window.scrollY;
-    const max = maxScroll();
-
-    // Prevent scrolling above y=0 or below max scroll
-    if ((deltaY < 0 && scrollTop <= 0) || (deltaY > 0 && scrollTop >= max)) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  }
-
-  function handleKeyDown(e) {
-    const scrollTop = window.scrollY;
-    const max = maxScroll();
-    const keys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', ' '];
-    // Prevent scrolling above y=0 or below max scroll
-    if (
-      keys.includes(e.key) &&
-      ((scrollTop <= 0 && ['ArrowUp', 'PageUp'].includes(e.key)) ||
-        (scrollTop >= max && ['ArrowDown', 'PageDown', ' '].includes(e.key)))
-    ) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  }
-
-  window.addEventListener('wheel', handleWheel, { passive: false });
-  document.addEventListener('touchstart', handleTouchStart, { passive: false });
-  document.addEventListener('touchmove', handleTouchMove, { passive: false });
-  document.addEventListener('keydown', handleKeyDown, { passive: false });
-
-  // Force scroll to top on load
-  window.scrollTo(0, 0);
-  
-  // Continuous scroll boundary monitoring to handle momentum
-  function monitorScrollBoundaries() {
-    const currentScroll = window.scrollY;
-    const max = maxScroll();
-    
-    if (currentScroll < 0) {
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    } else if (currentScroll > max) {
-      window.scrollTo({ top: max, behavior: 'instant' });
-    }
-    
-    requestAnimationFrame(monitorScrollBoundaries);
-  }
-  
-  // Start continuous monitoring
-  requestAnimationFrame(monitorScrollBoundaries);
 }
 
 /* -----------------------
